@@ -1,0 +1,19 @@
+.Inventory {
+  margin-top: 80px;
+}
+.Inventory .pageName {
+  display: inline-block;
+  width: 350px;
+  margin-top: -15px;
+  color: #000;
+  font-size: x-large;
+}
+.Inventory .btn {
+  margin-top: 30px;
+}
+.Inventory .table {
+  margin-top: 50px;
+}
+.Inventory button {
+  margin-right: 50px;
+}

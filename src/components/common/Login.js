@@ -64,7 +64,7 @@ class NormalLoginForm extends Component {
             this.state.isLoding ? <Spin size='large' className='loading' /> : <div className='login'>
                 <div className='login-form'>
                     <div className='login-logo'>
-                        <div className='login-name' style={{ marginLeft: '30px' }}>产业电商系统</div>
+                        <div className='login-name' style={{ marginLeft: '30px' }}>产业电商服务系统</div>
                     </div>
                     <Form
                         name="login"
