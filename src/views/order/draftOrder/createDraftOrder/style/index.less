@@ -1,0 +1,127 @@
+.createDraft-frame {
+    flex: 1 1;
+    max-width: 100%;
+    min-width: 0;
+    .createDraft-content {
+        margin: 0 auto;
+        max-width: 62.375rem;
+        padding: 0 20px;
+        .page-header {
+            // padding: 1.25rem 0;
+            .ant-page-header {
+                padding-left: 0;
+            }
+            .ant-page-header-back {
+                font-size: 28px;
+            }
+        }
+        .page-body {
+            align-items: flex-start;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            .body-left {
+                flex: 2 2 30rem;
+                min-width: 51%;
+                .left-Item:nth-child(1) {
+                    margin-top: 0;
+                }
+                .left-Item {
+                    margin-top: 16px;
+                    border-radius: 0.5rem;
+                    background-color: rgba(255, 255, 255, 1);
+                    box-shadow: 0 0 5px rgba(23,24,24, 0.05), 0 1px 2px rgba(0,0,0,0.15);
+                    outline: 0.0625rem solid #0000;
+                    .item-title {
+                        padding: 20px 20px 0px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                    }
+                    .item-content {
+                        padding: 1.25rem;
+                        display: flex;
+                    }
+                    .item-lists {
+                        padding: 1.25rem;
+                        font-size: 0.875rem;
+                        .item-list {
+                            column-gap: 0.625rem;
+                            display: grid;
+                            grid-template-areas: "item detail value";
+                            grid-template-columns: minmax(auto,30%) .7fr auto;
+                            margin: 0.25rem 0;
+                            padding: 0.25rem 0;
+                            margin-top: 0;
+                            padding-top: 0;
+                            .part1, .part2 {
+                                justify-content: start;
+                            }
+                            .part1 {
+                                grid-area: item;
+                            }
+                            .part2 {
+                                grid-area: detail;
+                            }
+                            .part3 {
+                                grid-area: value;
+                                justify-self: end;
+                            }
+                        }
+                        .item-footer {
+                            display: flex;
+                            align-items: stretch;
+                            flex-wrap: wrap;
+                            margin-left: calc(var(0.5rem)*-1);
+                            margin-top: calc(var(0.5rem)*-1);
+                            justify-content: flex-end;
+                            --pc-stack-spacing: var(0.5rem);
+                            .btn {
+                                margin-left: 8px;
+                                margin-top: 8px;
+                                max-width: 100%;
+                                flex: 0 0 auto;
+                                min-width: 0;
+                            }
+                        }
+                    }
+                    .item-table {
+                        padding: 0px 20px 20px 20px;
+                    }
+                }
+            }
+            .body-right {
+                flex: 1 1 15rem;
+                min-width: 0;
+                margin-left: 1.25rem;
+                max-width: calc(100% - 10.25rem);
+                .right-Item:nth-child(1) {
+                    margin-top: 0;
+                }
+                .right-Item {
+                    margin-top: 16px;
+                    border-radius: 0.5rem;
+                    background-color: rgba(255, 255, 255, 1);
+                    box-shadow: 0 0 5px rgba(23,24,24, 0.05), 0 1px 2px rgba(0,0,0,0.15);
+                    outline: 0.0625rem solid #0000;
+                    .item-title {
+                        padding: 20px 20px 0px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                    }
+                    .item-content {
+                        padding: 1.25rem;
+                        display: flex;
+                    }
+                    .clientInfo {
+                        padding: 0px 1.25rem 1.25rem 1.25rem;
+                    }
+                }
+            }
+        }
+        .page-footer {
+            padding: 1.25rem 0;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+    }
+}

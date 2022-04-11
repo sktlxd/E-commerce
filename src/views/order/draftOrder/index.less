@@ -1,0 +1,52 @@
+.draftOrder {
+    .header {
+        margin: 20px 0px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        .title {
+            font-size: 18px;
+            height: 32px;
+            line-height: 32px;
+            font-weight: bold;
+        }
+    }
+    .func {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 10px;
+        background:rgba(255, 255, 255, 1);
+        margin-bottom: 15px;
+        padding: 15px;
+        padding-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(23,24,24, 0.05), 0 1px 2px rgba(0,0,0,0.15);
+        outline: 0.0625rem solid #0000;
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear:both;
+            visibility: hidden;
+        }
+        .clearfix {
+            *zoom: 1;/*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+        }
+        .inputWrapper {
+            float: left;
+            margin-left: 30px;
+        }
+        .buttonList {
+            margin-left: 20px;
+            .button {
+                margin-right: 30px;
+            }
+        }
+    }
+    .table {
+        .tableHandle {
+            .spanName {
+            }
+        }
+    }
+}

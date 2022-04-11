@@ -1,0 +1,44 @@
+.select-product-modal {
+    .list-item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        .list-checkbox {
+            margin-right: 1rem;
+            min-width: var(1.25rem, 1rem);
+        }
+        .list-content {
+            flex: 1 0;
+            .list-flex {
+                display: flex;
+                .image {
+                    margin-right: 1rem;
+                }
+                .flex-box {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    .item-content {
+                        display: flex;
+                        flex: 1 1 auto;
+                        align-items: center;
+                        .title {
+                            flex: 1 1 auto;
+                        }
+                        .content {
+                            flex: 0 0 auto;
+                            .num {
+                                margin-left: 1rem;
+                            }
+                            .price {
+                                display: inline-block;
+                                min-width: 4.6875rem;
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
