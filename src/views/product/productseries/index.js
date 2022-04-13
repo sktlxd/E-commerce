@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component,  } from 'react'
 import { Table, Input, Button, Space, Tag, Radio, Divider,Tooltip, Popconfirm, Menu, Dropdown, } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined,EditTwoTone, DeleteTwoTone ,DownOutlined} from '@ant-design/icons';
@@ -35,7 +35,7 @@ const data = [
       number: '0003',
     },
   ];
-  const menu = (
+const menu = (
   <Menu>
     <Menu.Item>
       <a target="_blank" rel="noopener noreferrer" >
@@ -44,7 +44,7 @@ const data = [
     </Menu.Item>
   </Menu>
 );
-  const rowSelection = {
+const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
@@ -53,13 +53,18 @@ const data = [
       // Column configuration not to be checked
       name: record.name,
     }),
-  };
-export default class ManageProducts extends Component {
+};
+export default class ProductSeries extends Component {
 
     state = {
         searchText: '',
         searchedColumn: '',
+        selectedRowKeys: [],
       };
+    onSelectChange = selectedRowKeys => {
+      console.log('selectedRowKeys changed: ', selectedRowKeys);
+      this.setState({ selectedRowKeys });
+    };
     getColumnSearchProps = dataIndex => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
           <div style={{ padding: 8 }}>
@@ -143,23 +148,8 @@ export default class ManageProducts extends Component {
         case 'add':
           history.push('/app/addNewProductSeries')
           break
-        // case 'edit':
-        //   history.push('/app/editContact/' + value)
-        //   break
         // case 'renew':
         //   this.setState({contactVisible: true, modal_type:'renew', contract_id: value})
-        //   break
-        // case 'terminated':
-        //   this.setState({contactVisible: true, modal_type:'terminated',contract_id: value})
-        //   break
-        // case 'canceled':
-        //   this.setState({contactVisible: true, modal_type:'canceled', contract_id: value})
-        //   break
-        // case 'contract_canceled':
-        //   this.setState({ contractInfoVisible: true, modal_type: 'canceled', contract_id: value })
-        //   break
-        // case 'contract_terminated':
-        //   this.setState({ contractInfoVisible: true, modal_type: 'terminated', contract_id: value })
         //   break
         default:
           break
@@ -167,7 +157,12 @@ export default class ManageProducts extends Component {
     }
 
     render() {
-        const [selectionType, setSelectionType] = ('checkbox');
+        const {selectionType, selectedRowKeys} = this.state;
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange,
+        }
+        const hasSelected = selectedRowKeys.length > 0;
         const columns = [
             {
               title: '系列名称',
@@ -231,7 +226,7 @@ export default class ManageProducts extends Component {
 								</div>
                 ),
               },
-          ];
+        ];
         return (
             <div className='ProductSeries'>
                 <span className='pageName'>产品系列</span>
@@ -244,7 +239,7 @@ export default class ManageProducts extends Component {
                 <div className='table'>
                     <Divider />
                     <div>
-                      <Dropdown overlay={menu} placement="bottomLeft" arrow>
+                      <Dropdown disabled={!hasSelected} overlay={menu} placement="bottomLeft" arrow>
                         <Button>操作<DownOutlined /></Button>
                       </Dropdown>
                     </div>

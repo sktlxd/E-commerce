@@ -57,7 +57,7 @@ class App extends Component {
 
     let routers = store.getState().get('commonReducer').get('routers').toJS()
     routers = flattenArrays(routers, 'child')
-    console.log(routers)
+    // console.log(routers)
     // const breadcrumbList = getBreadFromLocation(routers, location.pathname)
 
     return (

@@ -1,51 +1,20 @@
-import React, { Component, useState } from 'react'
+import React, { Component,  } from 'react'
 import { Table, Input, Button, Space, Tag, Radio, Divider,Tooltip, Popconfirm, Menu, Dropdown, } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined,EditTwoTone, DeleteTwoTone ,DownOutlined} from '@ant-design/icons';
 import './index.less'
 import history from '../../../components/common/history'
+import EditManageProductModal from './EditModal';
+import axios from 'axios'
 
-const data = [
-    {
-      key: '1',
-      name: 'python',
-      tags: ['草稿'],
-      inventory: 32,
-      number: '0000',
-      manufacturer:'众创空间',
-      type:'编程语言'
-    },
-    {
-      key: '2',
-      name: 'java',
-      tags: ['草稿'],
-      inventory: 42,
-      number: '0001',
-      manufacturer:'众创空间',
-      type:'编程语言'
+import {
+	originalUrl,
+	getAllProductUrl,
+	
+} from '../../../dataModule/UrlList'
 
-    },
-    {
-      key: '3',
-      name: '前端',
-      tags: ['草稿'],
-      inventory: 32,
-      number: '0001',
-      manufacturer:'众创空间',
-      type:'编程语言'
 
-    },
-    {
-      key: '4',
-      name: 'react',
-      tags: ['缺货'],
-      inventory: 32,
-      number: '0003',
-      manufacturer:'众创空间',
-      type:'编程语言'
-
-    },
-  ];
+ 
   const menu = (
   <Menu>
     <Menu.Item>
@@ -65,17 +34,61 @@ const data = [
       name: record.name,
     }),
   };
-export default class ManinventoryProducts extends Component {
+export default class ManageProducts extends Component {
 
     state = {
         searchText: '',
         searchedColumn: '',
         selectedRowKeys: [],
+        editModalVisible: false,
+        manageProductInfo:null,
+        data : [
+            //  {
+            //    materialId: '1',
+            //    materialName: 'python',
+            //    materialStatus: ['草稿'],
+            //    inventory: 32,
+            //    materialCode: '0000',
+            //    manufacturer:'众创空间',
+            //    materialCategoryId:'编程语言'
+            //  },
+             
+        ]
       };
-      onSelectChange = selectedRowKeys => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
-        this.setState({ selectedRowKeys });
-      };
+    onSelectChange = selectedRowKeys => {
+      // console.log('selectedRowKeys changed: ', selectedRowKeys);
+      this.setState({ selectedRowKeys });
+    };
+    componentDidMount = () =>{
+      const me=this;
+      axios.get(originalUrl + getAllProductUrl).then( res=>{
+         console.log(res.data)
+         me.setState({
+             data:res.data.result
+         })
+      }).catch(err => {
+			console.log(err)
+		})	
+
+    };
+    showModal = (action, record) => {
+    switch (action) {
+			case 'edit':
+				this.setState({
+					editModalVisible: true,
+					manageProductInfo: record
+				})
+				break
+			default:
+				break
+    }
+	}
+
+	closeModal = () => {
+		this.setState({
+			editModalVisible: false
+		})
+	}
     getColumnSearchProps = dataIndex => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
           <div style={{ padding: 8 }}>
@@ -159,51 +172,37 @@ export default class ManinventoryProducts extends Component {
         case 'add':
           history.push('/app/addNewProducts')
           break
-        // case 'edit':
-        //   history.push('/app/editContact/' + value)
-        //   break
         // case 'renew':
         //   this.setState({contactVisible: true, modal_type:'renew', contract_id: value})
         //   break
-        // case 'terminated':
-        //   this.setState({contactVisible: true, modal_type:'terminated',contract_id: value})
-        //   break
-        // case 'canceled':
-        //   this.setState({contactVisible: true, modal_type:'canceled', contract_id: value})
-        //   break
-        // case 'contract_canceled':
-        //   this.setState({ contractInfoVisible: true, modal_type: 'canceled', contract_id: value })
-        //   break
-        // case 'contract_terminated':
-        //   this.setState({ contractInfoVisible: true, modal_type: 'terminated', contract_id: value })
-        //   break
+        
         default:
           break
       }
     }
 
     render() {
-        const {selectionType, selectedRowKeys} = this.state;
-        // const rowSelection = {
-        //      selectedRowKeys,
-        //     onChange: this.onSelectChange,
-        // };
+        const {selectionType, selectedRowKeys,editModalVisible,manageProductInfo,data} = this.state;
+        const rowSelection = {
+             selectedRowKeys,
+            onChange: this.onSelectChange,
+        };
         const hasSelected = selectedRowKeys.length > 0;
         const columns = [
             {
               title: '产品',
-              dataIndex: 'name',
+              dataIndex: 'materialName',
               render: (text) => <a>{text}</a>,
-              key: 'name',
+              key: 'materialName',
               align: 'center',
-              ...this.getColumnSearchProps('name'),
+              ...this.getColumnSearchProps('materialName'),
             },
             {
                 title: '状态',
-                key: 'tags',
-                dataIndex: 'tags',
+                key: 'materialStatus',
+                dataIndex: 'materialStatus',
                 align: 'center',
-                ...this.getColumnSearchProps('tags'),
+                ...this.getColumnSearchProps('materialStatus'),
                 render: tags => (
                   <>
                     {tags.map(tag => {
@@ -229,10 +228,10 @@ export default class ManinventoryProducts extends Component {
             },
             {
               title: '产品编号',
-              dataIndex: 'number',
-              key: 'number',
+              dataIndex: 'materialCode',
+              key: 'materialCode',
               align: 'center',
-              ...this.getColumnSearchProps('number'),
+              ...this.getColumnSearchProps('materialCode'),
               // sorter: (a, b) => a.number.length - b.number.length,
               // sortDirections: ['descend', 'ascend'],
             },
@@ -245,10 +244,10 @@ export default class ManinventoryProducts extends Component {
             },
             {
               title: '类型',
-              dataIndex: 'type',
-              key: 'type',
+              dataIndex: 'materialCategoryId',
+              key: 'materialCategoryId',
               align: 'center',
-              ...this.getColumnSearchProps('type'),
+              ...this.getColumnSearchProps('materialCategoryId'),
             },
             {
                 title: '操作',
@@ -274,7 +273,7 @@ export default class ManinventoryProducts extends Component {
 								</div>
                 ),
               },
-          ];
+        ];
         return (
             <div className='ManageProducts'>
                 <span className='pageName'>管理产品</span>
@@ -287,11 +286,13 @@ export default class ManinventoryProducts extends Component {
                 <div className='table'>
                     <Divider />
                     <div>
-                      <Dropdown overlay={menu} placement="bottomLeft" arrow>
-                        <Button disabled={!hasSelected}>操作<DownOutlined /></Button>
+                      <Dropdown disabled={!hasSelected} overlay={menu} placement="bottomLeft" arrow>
+                        <Button >操作<DownOutlined /></Button>
                       </Dropdown>
                     </div>
                     <Table
+                        // rowKey={data => data.materialId}
+                        rowKey="materialId"
                         rowSelection={{
                             type: selectionType,
                             ...rowSelection,
@@ -300,6 +301,14 @@ export default class ManinventoryProducts extends Component {
                         dataSource={data}
                     />
                 </div>
+                <div> 
+			        		<EditManageProductModal
+			        			visible={editModalVisible}
+			        			cancel={this.closeModal}
+			        			manageProductInfo={manageProductInfo}
+			        			// editMes={this.editProprietorMes}
+			        		/>
+			        	</div>
                 
             </div>
         )

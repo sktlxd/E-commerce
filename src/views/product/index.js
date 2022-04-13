@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Table, Tag, Space } from 'antd';
-import ReactDOM from 'react-dom';
+
 
 export default class Product extends Component {
     state = {

@@ -11,6 +11,7 @@ import Clients from '../../../views/clients/clients'
 import ManageProducts from '../../../views/product/manageproducts'
 import Inventory from '../../../views/product/inventory'
 import ProductSeries from '../../../views/product/productseries'
+import ProductType from '../../../views/product/producttype'
 import * as constants from './constants'
 
 const defaultState = fromJS({
@@ -76,6 +77,13 @@ const defaultState = fromJS({
           link: '/app/ProductSeries',
           title: '产品系列',
           key: '/app/ProductSeries',
+          child: []
+        },
+        {
+          routerDom: <Route key={'/app/ProductType'} path={'/app/ProductType'} component={ (props) => <ProductType { ...props }/> } />,
+          link: '/app/ProductType',
+          title: '产品类别',
+          key: '/app/ProductType',
           child: []
         }
       ]
